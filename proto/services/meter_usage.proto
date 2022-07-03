@@ -1,0 +1,13 @@
+syntax = "proto3";
+package meterusage;
+
+message Empty {}
+
+message Reading {
+    string time = 1;
+    float usage = 2;
+}
+
+service MeterUsage {
+    rpc GetReading (Empty) returns (stream Reading);
+}
