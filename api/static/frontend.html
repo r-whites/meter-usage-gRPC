@@ -9,10 +9,9 @@
   <body>
 	<script type="text/javascript">
         fetch('http://localhost:5000/api/readings')
-        .then((response) => response.body.getReader())
-        .then((reader) => reader.read())
-        .then((res) => {
-          console.log(res)
+        .then((response) => response.json())
+        .then((resp_json) => {
+          console.log(resp_json);
         })
     </script>
   </body>
