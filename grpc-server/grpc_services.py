@@ -1,7 +1,7 @@
 import imp
 import os
 import csv
-from generated.services import meter_usage_pb2_grpc, meter_usage_pb2
+from generated import meter_usage_pb2_grpc, meter_usage_pb2
 
 
 class MeterUsage(meter_usage_pb2_grpc.MeterUsage):
@@ -13,7 +13,6 @@ class MeterUsage(meter_usage_pb2_grpc.MeterUsage):
             next(reader)
 
             for csv_reading in reader:
-                print(csv_reading)
                 reading = meter_usage_pb2.Reading(
                     time = csv_reading[0],
                     usage = float(csv_reading[1])

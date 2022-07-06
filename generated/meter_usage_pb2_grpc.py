@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import meter_usage_pb2 as services_dot_meter__usage__pb2
+from . import meter_usage_pb2 as meter__usage__pb2
 
 
 class MeterUsageStub(object):
@@ -16,8 +16,8 @@ class MeterUsageStub(object):
         """
         self.GetReading = channel.unary_stream(
                 '/meterusage.MeterUsage/GetReading',
-                request_serializer=services_dot_meter__usage__pb2.Empty.SerializeToString,
-                response_deserializer=services_dot_meter__usage__pb2.Reading.FromString,
+                request_serializer=meter__usage__pb2.Empty.SerializeToString,
+                response_deserializer=meter__usage__pb2.Reading.FromString,
                 )
 
 
@@ -35,8 +35,8 @@ def add_MeterUsageServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetReading': grpc.unary_stream_rpc_method_handler(
                     servicer.GetReading,
-                    request_deserializer=services_dot_meter__usage__pb2.Empty.FromString,
-                    response_serializer=services_dot_meter__usage__pb2.Reading.SerializeToString,
+                    request_deserializer=meter__usage__pb2.Empty.FromString,
+                    response_serializer=meter__usage__pb2.Reading.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -60,7 +60,7 @@ class MeterUsage(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/meterusage.MeterUsage/GetReading',
-            services_dot_meter__usage__pb2.Empty.SerializeToString,
-            services_dot_meter__usage__pb2.Reading.FromString,
+            meter__usage__pb2.Empty.SerializeToString,
+            meter__usage__pb2.Reading.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
