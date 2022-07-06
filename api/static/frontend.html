@@ -4,15 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript">
+      fetch('http://localhost:5000/api/readings')
+      .then((response) => response.json())
+      .then((resp_json) => {
+
+        let readingInfo = document.querySelector('p.readings-info');
+        readingInfo.innerText = "Readings: " + resp_json.length;
+
+        let tableContainer = document.querySelector('div.readings-table-container');
+        let readingsTable = document.createElement('table');
+        let readingsTableHead = document.createElement('thead');
+        let readingsTableHeadersRow = document.createElement('tr');
+
+        let headerTime = document.createElement('th')
+        let headerUsage = document.createElement('th')
+
+        headerTime.innerHTML = 'Time';
+        headerUsage.innerHTML = 'Usage';
+
+        readingsTableHeadersRow.append(headerTime);
+        readingsTableHeadersRow.append(headerUsage);
+
+        readingsTableHead.append(readingsTableHeadersRow);
+        readingsTable.append(readingsTableHead);
+        tableContainer.append(readingsTable);
+
+        for (let i=0; i < resp_json.length; i++) {
+          let readingTableRow = document.createElement('tr');
+          let readingTime = document.createElement('td');
+          let readingUsage = document.createElement('td');
+
+          readingTime.innerText = resp_json[i].time;
+          readingUsage.innerText = resp_json[i].usage;
+          
+          readingTableRow.append(readingTime, readingUsage)
+          readingsTable.append(readingTableRow);
+        }
+      })
+  </script>
     <title>Meter Usage Fetcher</title>
   </head>
   <body>
-	<script type="text/javascript">
-        fetch('http://localhost:5000/api/readings')
-        .then((response) => response.json())
-        .then((resp_json) => {
-          console.log(resp_json);
-        })
-    </script>
+    <p class="readings-info"></p>
+    <div class="readings-table-container"></div>
   </body>
 </html>
