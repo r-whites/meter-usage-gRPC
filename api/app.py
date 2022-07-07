@@ -1,5 +1,6 @@
+from re import A
 import grpc
-from flask import Flask, Response
+from flask import Flask, Response, request
 from generated import meter_usage_pb2, meter_usage_pb2_grpc
 from google.protobuf import json_format
 
@@ -27,7 +28,10 @@ def get_json_meter_usage_stream(readings):
 @app.route('/api/readings', methods = ['GET'])
 def meter_usage():
 
-    readings = meter_usage_stub.GetReadings(meter_usage_pb2.RequestReadings())
+    readings_request = meter_usage_pb2.RequestReadings(n=int(request.args['n'])) \
+                       if 'n' in request.args else meter_usage_pb2.RequestReadings()
+
+    readings = meter_usage_stub.GetReadings(readings_request)
     return Response(get_json_meter_usage_stream(readings=readings), content_type="application/json")
 
 

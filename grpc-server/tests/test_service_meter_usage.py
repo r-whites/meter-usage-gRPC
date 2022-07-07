@@ -20,7 +20,6 @@ def grpc_stub_cls(grpc_channel):
 
 
 def test_readings_n_request(grpc_stub):
-
     N = random.randint(1, 3000)
     readings_request = RequestReadings(n=N)
     readings = grpc_stub.GetReadings(readings_request)
