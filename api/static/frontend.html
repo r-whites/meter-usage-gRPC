@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script type="text/javascript">
-      fetch('http://localhost:5000/api/readings')
+      fetch('http://localhost:5000/api/readings?n=100')
       .then((response) => response.json())
       .then((resp_json) => {
 

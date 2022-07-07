@@ -24,7 +24,7 @@ def get_json_meter_usage_stream(readings):
 
     # Yields subsequent comma-separated json readings
     for reading in readings:
-        to_json = json_format.MessageToJson(reading)
+        to_json = json_format.MessageToJson(prev_reading)
         yield to_json + ','
         prev_reading = reading
 
