@@ -7,26 +7,38 @@ app = Flask(__name__)
 channel = grpc.insecure_channel('localhost:51510')
 meter_usage_stub = meter_usage_pb2_grpc.MeterUsageStub(channel=channel)
 
+def get_json_meter_usage_stream(readings):
+    try:
+        prev_reading = next(readings)
+    except StopIteration:
+        yield '[]'
+        raise StopIteration
+
+    yield '['
+
+    for reading in readings:
+        to_json = json_format.MessageToJson(reading)
+        yield to_json + ','
+        prev_reading = reading
+
+    yield json_format.MessageToJson(prev_reading) + ']'
+
+
 @app.route('/api/readings', methods = ['GET'])
 def meter_usage():
 
-    def get_json_readings():
-        readings = meter_usage_stub.GetReading(meter_usage_pb2.Empty())
-        
-        try:
-            prev_reading = next(readings)
-        except StopIteration:
-            yield '[]'
-            raise StopIteration
+    readings = meter_usage_stub.GetReadings(meter_usage_pb2.RequestReadings())
+    return Response(get_json_meter_usage_stream(readings=readings), content_type="application/json")
 
-        yield '['
 
-        for reading in readings:
-            to_json = json_format.MessageToJson(reading)
-            yield to_json + ','
-            prev_reading = reading
+@app.route('/api/readings/range', methods = ['GET'])
+def meter_usage_range():
 
-        yield json_format.MessageToJson(prev_reading) + ']'
+    request_range = meter_usage_pb2.RequestReadingsRange(
+        from_date_ts = "2019-01-17 00:00:00",
+        to_date_ts = "2019-01-17 23:59:00"
+    )
 
-        
-    return Response(get_json_readings(), content_type="application/json")
+    readings = meter_usage_stub.GetReadingsRange(request_range)
+    
+    return Response(get_json_meter_usage_stream(readings=readings), content_type="application/json")

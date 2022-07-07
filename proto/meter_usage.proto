@@ -1,7 +1,14 @@
 syntax = "proto3";
 package meterusage;
 
-message Empty {}
+message RequestReadings {
+    optional int32 n = 1;
+}
+
+message RequestReadingsRange {
+    string from_date_ts = 1;
+    string to_date_ts = 2;
+}
 
 message Reading {
     string time = 1;
@@ -9,5 +16,6 @@ message Reading {
 }
 
 service MeterUsage {
-    rpc GetReading (Empty) returns (stream Reading);
+    rpc GetReadings (RequestReadings) returns (stream Reading);
+    rpc GetReadingsRange(RequestReadingsRange) returns (stream Reading);
 }
