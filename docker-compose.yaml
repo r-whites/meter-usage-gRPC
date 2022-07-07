@@ -1,9 +1,21 @@
 services:
+  grpc-server:
+    build:
+      context: ./
+      dockerfile: ./grpc-server/Dockerfile
+    working_dir: /
+    command: python3 -m server.server
+    ports:
+      - "51510:51510"
   grpc-client:
-    build: ./api
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production 
+    build:
+      context: ./
+      dockerfile: ./api/Dockerfile
+    command: python3 -m flask run --host=0.0.0.0
     ports:
       - "5000:5000"
-    links:
-     - grpc-server
-  grpc-server:
-    build: ./grpc-server
+    depends_on:
+      - grpc-server

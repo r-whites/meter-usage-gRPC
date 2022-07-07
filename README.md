@@ -19,3 +19,39 @@ The Front-End is a single HTML page served by the HTTP server for convenience's 
 The use case demands for a csv file with timeseries meter usage data to be trasmitted to the client as JSON. It is assumed that the csv resides directly on the gRPC  server filesystem. Given that the order of magnitude for the entry is in the thousands, streams coupled with generator are used to avoid high memory footprint.
 
 ## Deployment
+
+## localhost
+
+Optionally create a virtual environment:
+
+```console
+    python3 -m venv .venv
+    source .venv/bin/activate
+```
+
+Install the dependencies
+
+```console
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+```
+
+Deploy the rpc-server
+
+```console
+    make run-server
+```
+
+Deploy the rpc-client
+
+```console
+    make run-client
+```
+
+## docker-compose
+
+```console
+    docker-compose up
+```
+
+Visit: http://localhost:5000

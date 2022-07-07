@@ -21,10 +21,10 @@ proto-compile-client:
 	python3 -m grpc_tools.protoc -I proto --python_out=./api --grpc_python_out=./api ./proto/*.proto; \
 	sed -i -E 's/\(^import.*_pb2\)/from . \1/g' ./api/*_pb2_grpc.py;
 	
-run-api:
+run-client:
 	export FLASK_APP=api/app.py; \
 	export FLASK_ENV=development; \
 	flask run;
 
-run-grpc:
+run-server:
 	python -m grpc-server.server;
