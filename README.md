@@ -25,33 +25,33 @@ The use case demands for a csv file with timeseries meter usage data to be trasm
 Optionally create a virtual environment:
 
 ```console
-    python3 -m venv .venv
-    source .venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 Install the dependencies
 
 ```console
-    python -m pip install --upgrade pip
-    python -m pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
 Deploy the rpc-server
 
 ```console
-    make run-server
+make run-server
 ```
 
 Deploy the rpc-client
 
 ```console
-    make run-client
+make run-client
 ```
 
 ## docker-compose
 
 ```console
-    docker-compose up
+docker-compose up
 ```
 
 Visit: http://localhost:5000
