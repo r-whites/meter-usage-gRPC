@@ -1,0 +1,5 @@
+grpcio==1.47.0
+grpcio-tools==1.47.0
+Flask==2.1.2
+pytest==7.1.2
+jsonschema==4.6.1

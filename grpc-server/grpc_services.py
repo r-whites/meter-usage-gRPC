@@ -1,9 +1,9 @@
 from datetime import datetime
 import csv
-from generated import meter_usage_pb2_grpc, meter_usage_pb2
+from . import meter_usage_pb2_grpc, meter_usage_pb2
 
 
-class MeterUsage(meter_usage_pb2_grpc.MeterUsageServicer):
+class MeterUsageImp(meter_usage_pb2_grpc.MeterUsageServicer):
 
     def GetReadings(self, request, context):
         ''' Returns a stream of Reading and stops after n if defined '''

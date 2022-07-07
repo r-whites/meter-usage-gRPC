@@ -10,8 +10,8 @@ def grpc_add_to_server():
 
 @pytest.fixture(scope='module')
 def grpc_servicer():
-    from grpc_services import MeterUsage
-    return MeterUsage()
+    from grpc_services import MeterUsageImp
+    return MeterUsageImp()
 
 @pytest.fixture(scope='module')
 def grpc_stub_cls(grpc_channel):

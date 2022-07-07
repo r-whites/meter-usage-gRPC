@@ -1,0 +1,9 @@
+services:
+  grpc-client:
+    build: ./api
+    ports:
+      - "5000:5000"
+    links:
+     - grpc-server
+  grpc-server:
+    build: ./grpc-server

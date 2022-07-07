@@ -13,14 +13,18 @@ export HELP
 help:
 	@echo "$$HELP"
 
-proto-compile:
-	python3 -m grpc_tools.protoc -I proto --python_out=./generated --grpc_python_out=./generated ./proto/*.proto; \
-	sed -i -E 's/\(^import.*_pb2\)/from . \1/g' ./generated/*.py
+proto-compile-server:
+	python3 -m grpc_tools.protoc -I proto --python_out=./grpc-server --grpc_python_out=./grpc-server ./proto/*.proto; \
+	sed -i -E 's/\(^import.*_pb2\)/from . \1/g' ./grpc-server/*_pb2_grpc.py;
+
+proto-compile-client:
+	python3 -m grpc_tools.protoc -I proto --python_out=./api --grpc_python_out=./api ./proto/*.proto; \
+	sed -i -E 's/\(^import.*_pb2\)/from . \1/g' ./api/*_pb2_grpc.py;
 	
-api-run-dev:
+run-api:
 	export FLASK_APP=api/app.py; \
 	export FLASK_ENV=development; \
 	flask run;
 
-grpc-run:
-	python -m grpc-server;
+run-grpc:
+	python -m grpc-server.server;

@@ -1,7 +1,7 @@
 from re import A
 import grpc
 from flask import Flask, Response, request
-from generated import meter_usage_pb2, meter_usage_pb2_grpc
+from . import meter_usage_pb2, meter_usage_pb2_grpc
 from google.protobuf import json_format
 
 app = Flask(__name__)
