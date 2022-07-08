@@ -62,3 +62,7 @@ docker-compose up --build
 ```
 
 Visit: http://localhost:5000/static/frontend.html
+
+Expected output:
+
+![alt expected output](frontend_screenshot.png "Expected Output")
