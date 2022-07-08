@@ -5,7 +5,7 @@ from . import meter_usage_pb2, meter_usage_pb2_grpc
 from google.protobuf import json_format
 
 app = Flask(__name__)
-is_deployed = os.environ.get('FLASK_ENV') is 'production'
+is_deployed = os.environ.get('FLASK_ENV') == 'production'
 channel_address = 'dns:///grpc-server:51510' if is_deployed else 'localhost:51510'
 channel = grpc.insecure_channel(channel_address)
 meter_usage_stub = meter_usage_pb2_grpc.MeterUsageStub(channel=channel)

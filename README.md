@@ -36,6 +36,13 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
+Compile the proto services
+
+```console
+make proto-compile-server
+make proto-compile-client
+```
+
 Deploy the rpc-server
 
 ```console
@@ -51,7 +58,7 @@ make run-client
 ## docker-compose
 
 ```console
-docker-compose up
+docker-compose up --build
 ```
 
 Visit: http://localhost:5000
